@@ -38,10 +38,16 @@ connection.query('SELECT * from products', function (error, results, fields)
     					var totalCost = units * results[product].price;
     					var newCount = results[product].stock_quantity - units;
     					if (newCount >= 0){
-    						console.log("Your selection of " + units + " " + results[product].product_name + " will have a total cost of $" + totalCost + ".")
+    						console.log("Your selection of " + units + " " + results[product].product_name + " will have a total cost of $" + totalCost + ".");
+    						connection.query("UPDATE products SET stock_quantity=" + newCount + " WHERE id=" + results[product].id, function(err, res) { 
+            					if (err) return console.log(err);
+         					});
+         					connection.query("INSERT INTO sales (product_id, quantity_purchased) VALUES (" + results[product].id + ", " + units + " )", function(err, res) { 
+            					if (err) return console.log(err);
+          					});
     					} else {
     						console.log("Insufficient Quantity in Stock! Please Exit and Try Again.")
-    					}
+    					};
     			});
         });
 });
