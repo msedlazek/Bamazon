@@ -26,9 +26,24 @@ connection.query('SELECT * from products', function (error, results, fields)
       		name: "product_id",
       		message: "Please enter the Item ID of the product you wish to purchase."}
     		]).then(function(data){
-        		var product = data.product_id;
-        		console.log(results[product - 1].product_name);
-        	});
+        		var product = data.product_id - 1;
+        		console.log("You have selected " + results[product].product_name);
+        		
+        		inquirer.prompt([
+    				{type: "input",
+      				name: "units",
+      				message: "How much of this item would you like to purchase?"}
+    				]).then(function(data){
+    					var units = data.units
+    					var totalCost = units * results[product].price;
+    					var newCount = results[product].stock_quantity - units;
+    					if (newCount >= 0){
+    						console.log("Your selection of " + units + " " + results[product].product_name + " will have a total cost of $" + totalCost + ".")
+    					} else {
+    						console.log("Insufficient Quantity in Stock! Please Exit and Try Again.")
+    					}
+    			});
+        });
 });
 
 // [ RowDataPacket {
