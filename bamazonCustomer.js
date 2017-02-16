@@ -45,8 +45,31 @@ connection.query('SELECT * from products', function (error, results, fields)
          					connection.query("INSERT INTO sales (product_id, quantity_purchased) VALUES (" + results[product].id + ", " + units + " )", function(err, res) { 
             					if (err) return console.log(err);
           					});
+          					inquirer.prompt([
+    							{type: "input",
+      							name: "confirm",
+      							message: "Thank you for your purchase, would you like to make another one? yes/no"}
+    							]).then(function(data){
+    								if (data.confirm == "yes"){
+    									console.log("Then exit and try again dummy!")
+    								} else {
+    									console.log("Have a nice day!")
+    									connection.end();
+    								}
+    						});
     					} else {
-    						console.log("Insufficient Quantity in Stock! Please Exit and Try Again.")
+    						inquirer.prompt([
+    							{type: "input",
+      							name: "confirm",
+      							message: "Insufficient quantity in stock! Would you like to try again? yes/no"}
+    							]).then(function(data){
+    								if (data.confirm == "yes"){
+    									console.log("Then exit and try again dummy!")
+    								} else {
+    									console.log("Have a nice day!")
+    									connection.end();
+    								}
+    						});
     					};
     			});
         });
