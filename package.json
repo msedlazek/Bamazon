@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "A command prompt application using MySQL to keep track of products and sales.",
+  "main": "connection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msedlazek/Bamazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msedlazek/Bamazon/issues"
+  },
+  "homepage": "https://github.com/msedlazek/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.0.1",
+    "mysql": "^2.13.0"
+  }
+}
